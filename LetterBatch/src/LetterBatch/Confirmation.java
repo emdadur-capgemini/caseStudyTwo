@@ -6,4 +6,5 @@ public class Confirmation {
 	String postcode;
 	String ContactName;
 	
+	//asdsadasdasd
 }
