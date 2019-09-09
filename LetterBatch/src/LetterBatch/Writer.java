@@ -28,26 +28,26 @@ public class Writer {
 	String contactName = "John Snow";
 	String contactNumber = "0763636373";
 	
-	public static void main(String []args) {
-		
-		//Assuming given array of contacts
-		ArrayList<String> myList = new ArrayList<String>();
-		ArrayList<String> myList1 = new ArrayList<String>();
-
-		myList.add("John");
-		myList1.add("073247432");
-		
-		myList.add("Bill");
-		myList1.add("0735435353");
-		
-		//System.out.println(myList1.get(0));
-		
-		for(int i =0; i<myList.size();i++) {
-			
-			System.out.println(myList.get(i)+myList1.get(i));
-			
-			
-		}
+//	public static void main(String []args) {
+//		
+//		//Assuming given array of contacts
+//		ArrayList<String> myList = new ArrayList<String>();
+//		ArrayList<String> myList1 = new ArrayList<String>();
+//
+//		myList.add("John");
+//		myList1.add("073247432");
+//		
+//		myList.add("Bill");
+//		myList1.add("0735435353");
+//		
+//		//System.out.println(myList1.get(0));
+//		
+//		for(int i =0; i<myList.size();i++) {
+//			
+//			System.out.println(myList.get(i)+myList1.get(i));
+//			
+//			
+//		}
 		
 //		replaceSelected("<<address1>>", address1);
 //		replaceSelected("<<postcode>>", postcode);
@@ -57,7 +57,7 @@ public class Writer {
 		//replaceSelected("<<contactNumber>>", address1);
 		
 		
-	}
+//	}
 	
 	public static void replaceSelected(String replaceWith, String type) {
 	    try {

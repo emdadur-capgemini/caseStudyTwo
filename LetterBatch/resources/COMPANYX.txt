@@ -1,0 +1,28 @@
+1|OneCo|10 One Road|TF1 6SO|Jeff
+1A|OneCo|Mark Shark|01952 234543
+1A|OneCo|Jeff Wing|01952 277354
+1A|OneCo|Gary Grunt|01952 742354
+2|TwoCo|Jenny|20
+3|ThreeCo|Lesley
+3A|ThreeCo|Sledgehammer|29.99
+3A|ThreeCo|Lawnmower|89.99
+3A|ThreeCo|Hammer|9.50
+2|FourCo|Brad|5
+2|FiveCo|Tina|7.5
+1|SixCo|66 Six Road|BL6 1NY|Mary
+1A|SixCo|Mary Contrary|01204 324445
+1|EightCo|888 Eights Road|NN11 5TN|Samit
+1A|EightCo|Prakash Poye|01792 200100
+1A|EightCo|Martin Fallout|01792 700100
+1A|EightCo|Bal Findu|0791 244111
+1A|EightCo|Carl Cobol|01792 700100
+1A|EightCo|Deepak Singh|0792 334442
+3|SevenCo|Lesley
+3A|SevenCo|Big Shed|299.99
+2|NineCo|Jack|1.5
+3|TenCo|Benny
+3A|TenCo|Astroturf|750.00
+3A|TenCo|Bricks|247.40
+3A|TenCo|Mortar|49.99
+3A|TenCo|Concrete|35.99
+
