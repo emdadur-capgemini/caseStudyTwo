@@ -10,7 +10,6 @@ public class Confirmation {
 		
 		System.out.println("Hohoho");
 		
-		
 	}
 
 }
