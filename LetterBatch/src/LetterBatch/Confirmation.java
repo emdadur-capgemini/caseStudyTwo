@@ -6,5 +6,10 @@ public class Confirmation {
 	String postcode;
 	String ContactName;
 	
+	public static void main(String []args) {
+		
+		System.out.println("Hello");
+		
+	}
 
 }
