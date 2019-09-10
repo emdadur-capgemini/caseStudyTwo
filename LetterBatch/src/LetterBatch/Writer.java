@@ -27,31 +27,29 @@ public class Writer {
     static File dest;
 
 	
-	////group of contacts
-	ArrayList<String> contNameList = new ArrayList<String>();
-	ArrayList<String> contNoList = new ArrayList<String>();
-	
 	//group of products
 	ArrayList<String> prodNameList = new ArrayList<String>();
 	ArrayList<Double> prodCostList = new ArrayList<Double>();
-
+	
+	//group of contacts
+	ArrayList<Contacts> contList = new ArrayList<Contacts>();
  
 	public void Confirmation(Confirmation name) throws IOException {
 		
 		File source = new File("/home/regen/Desktop/confirmation.txt");
         dest = new File("/home/regen/Desktop/"+name.getCompanyName()+".txt");
-
         copyFileUsingStream(source, dest);
-        
-		contNameList = name.getContactNameList();
-		contNoList = name.getContactNumberList();
 	
+		contList = name.getContactList();
+		
 		replaceSelected("<<address1>>",name.getAddress());
 		replaceSelected("<<postcode>>", name.getPostcode());
 		replaceSelected("<<system.today>>", ("\t"+letterDate));
 		replaceSelected("<<letterName>>", name.getContactName());
 		
-		replaceSelectedArray(contNameList, contNoList);
+		
+		System.out.println("check this: "+ contList);
+		replaceSelectedContacts(contList);
 		
 	}
 	
@@ -73,13 +71,10 @@ public class Writer {
 		
 	}
 	
-	public void Invoice(Invoice invo) throws IOException {
-		
-		
+	public void Invoice(Invoice invo) throws IOException {	
 		
 		File source = new File("/home/regen/Desktop/invoice.txt");
         dest = new File("/home/regen/Desktop/"+invo.getCompanyName()+".txt");
-
         copyFileUsingStream(source, dest);
         
         prodNameList = invo.getProductNameList();
@@ -98,13 +93,13 @@ public class Writer {
 		    dummy.add(s[i]);
 		}
 		
-		replaceSelectedArray(prodNameList, dummy);
+		//replaceSelectedArray(prodNameList, dummy);
 
 		
 	}
 
 	
-	public static void replaceSelectedArray(ArrayList<String> name, ArrayList<String> number) {
+	public static void replaceSelectedContacts(ArrayList<Contacts> contacts) {
 		
         try {
         	
@@ -121,14 +116,16 @@ public class Writer {
 			file.close();
 		    String inputStr = inputBuffer.toString();
 		    
+
+		    
 		    //Converts given array to string for place holder replacement
 		    StringBuilder sb = new StringBuilder();
-		    for (int i = 0; i<name.size();i++)
+		    for (int i = 0; i<contacts.size();i++)
 		    {
-		        sb.append(name.get(i));
+		        sb.append(contacts.get(i).getContactName());
 		        
 		        //formatting if names are too large
-		        if(name.get(i).length()<14) {
+		        if(contacts.get(i).getContactName().length()<14) {
 		        	
 		        	sb.append("\t");
 		        	
@@ -136,7 +133,7 @@ public class Writer {
 		        
 		        //formatting to have details next to each other
 		        sb.append("\t");                    
-		        sb.append(number.get(i));
+		        sb.append(contacts.get(i).getContactNumber());
 		        sb.append("\n");
 		        sb.append("  ");
 

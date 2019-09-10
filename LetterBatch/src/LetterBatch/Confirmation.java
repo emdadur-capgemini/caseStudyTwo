@@ -1,6 +1,5 @@
 package LetterBatch;
 
-
 import java.util.ArrayList;
 
 public class Confirmation {
@@ -10,7 +9,7 @@ public class Confirmation {
 	private String contactName;
 	private ArrayList<String> contactNameA = new ArrayList<String>();
 	private ArrayList<String> contactNumberA = new ArrayList<String>();
-	
+	private ArrayList<Contacts> contactList = new ArrayList<Contacts>();
 	
 	
 	public Confirmation(String companyName, String address, String postcode, String contactName) {
@@ -47,10 +46,16 @@ public class Confirmation {
 		return companyName;
 	}
 	
+	public ArrayList<Contacts> getContactList() {
+		return contactList;
+	}
+
 	public void addContact(String name, String number) {
 		
 		contactNameA.add(name);
 		contactNumberA.add(number);
+		Contacts cont = new Contacts(name, number);
+		contactList.add(cont);
 		
 	}
 	
