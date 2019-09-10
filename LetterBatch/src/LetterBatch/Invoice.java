@@ -7,7 +7,7 @@ public class Invoice {
 	String contactName;
 	ArrayList<String> productNameList = new ArrayList<String>();
 	ArrayList<Double> priceList = new ArrayList<Double>();
-	
+	ArrayList<Products> productList = new ArrayList<Products>();
 
 	public Invoice(String compName, String contName) {
 		
@@ -20,6 +20,8 @@ public class Invoice {
 		
 		this.productNameList.add(name);
 		this.priceList.add(price);
+		Products prod = new Products(name, price);
+		productList.add(prod);
 		
 	}
 
