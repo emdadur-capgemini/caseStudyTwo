@@ -117,31 +117,5 @@ public class Reader {
 		
 	}
 	
-	public void splitLine(String str) {
-		
-		String[] split = str.split("[|]"); 
-		   
-		switch(split[0]) {
-		
-		case "1":
-			Confirmation conf = new Confirmation(split[1],split[2],split[3],split[4]);
-			break;
-		case "1A":
-			
-			break;
-		case "2":
-			
-			break;
-		case "3":
-			
-			break;
-		case "3A":
-			
-			break;
-		default:
-			break;
-		}
-		System.out.println();
-	}
 
 }

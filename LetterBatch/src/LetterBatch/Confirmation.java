@@ -9,7 +9,7 @@ public class Confirmation {
 	private String contactName;
 	private ArrayList<String> contactNameA = new ArrayList<String>();
 	private ArrayList<String> contactNumberA = new ArrayList<String>();
-	
+	private ArrayList<Contacts> contactList = new ArrayList<Contacts>();
 	
 	
 	public Confirmation(String companyName, String address, String postcode, String contactName) {
@@ -50,6 +50,7 @@ public class Confirmation {
 		
 		contactNameA.add(name);
 		contactNumberA.add(number);
+		contactList.add(new Contacts(name, number));
 		
 	}
 	

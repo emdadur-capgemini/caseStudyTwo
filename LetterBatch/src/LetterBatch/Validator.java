@@ -106,7 +106,7 @@ public class Validator {
 		//System.out.println(ValDiscountRate("s", "fi", 6));
 		//System.out.println(ValInvoiceHeader("",""));
 		//System.out.println(ValInvoice("firdows","seldge hammer", 23.12));
-		System.out.println(checknumber("2 "));
+		System.out.println(checknumber("2 55"));
 
 
 	}
