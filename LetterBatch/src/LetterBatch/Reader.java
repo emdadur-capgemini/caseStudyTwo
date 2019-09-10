@@ -3,7 +3,6 @@ package LetterBatch;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 
 public class Reader {
 	
@@ -24,6 +23,7 @@ public class Reader {
 	  
 	  String st; 
 	  Confirmation conf;
+	  Discount disc;
 	  while ((st = br.readLine()) != null) {
 		  
 		  //splitLine(st);
@@ -36,22 +36,28 @@ public class Reader {
 			case "1":
 				conf = new Confirmation(split[1],split[2],split[3],split[4]);
 				addContacts(conf,split[1]);
+				System.out.println(conf.getCompanyName() + conf.getAddress() + conf.getPostcode() + conf.getContactName());
 				System.out.println(conf.getContactNameList());
 				System.out.println(conf.getContactNumberList());
+				System.out.println("===========================================================================");
 				break;
 			case "2":
-				
+				disc = new Discount(split[1],split[2],Double.valueOf(split[3]));
+				System.out.println(disc.getCompanyName() + disc.getContactName() + disc.getDiscount());
+				System.out.println("===========================================================================");
 				break;
 			case "3":
+				System.out.println("---------------------------------------------------------------------------");
 				
 				break;
 			case "3A":
+				System.out.println("---------------------------------------------------------------------------");
 				
 				break;
 			default:
 				break;
 			}
-			System.out.println("---------------------------------------------------------------------------");
+
 		  
 		  
 	  }
