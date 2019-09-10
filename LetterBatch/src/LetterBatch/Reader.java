@@ -51,7 +51,7 @@ public class Reader {
 			default:
 				break;
 			}
-			System.out.println();
+			System.out.println("---------------------------------------------------------------------------");
 		  
 		  
 	  }
