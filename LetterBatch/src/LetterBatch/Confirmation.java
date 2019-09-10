@@ -52,8 +52,8 @@ public class Confirmation {
 
 	public void addContact(String name, String number) {
 		
-		contactNameA.add(name);
-		contactNumberA.add(number);
+//		contactNameA.add(name);
+//		contactNumberA.add(number);
 		Contacts cont = new Contacts(name, number);
 		contactList.add(cont);
 		

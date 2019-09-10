@@ -2,14 +2,72 @@ package LetterBatch;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+
 
 public class Reader {
 	
 	File file = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/COMPANYX.txt"); 
-	  
+	Validator validation;
 	public Reader() {
 		
+		
+	}
+	
+	
+	public boolean validateData() throws Exception {
+		
+
+	  BufferedReader br = new BufferedReader(new FileReader(file)); 
+	  
+	  String st; 
+	  Confirmation conf;
+	  Discount disc;
+	  Invoice inv;
+	  Products prod;
+	  Contacts cont;
+
+	  while ((st = br.readLine()) != null) {
+	  
+		  
+		  String[] split = st.split("[|]"); 
+		   
+			switch(split[0]) {
+			
+			case "1":
+				conf = new Confirmation(split[1],split[2],split[3],split[4]);
+				System.out.println(Validator.ValRegistration(conf.getCompanyName(),conf.getAddress(), conf.getPostcode(), conf.getContactName()));
+				break;
+			case "1A":
+				cont = new Contacts(split[1],split[2],split[3]);
+				System.out.println(Validator.ValCompDetails(cont.getCompanyName(),cont.getContactName(),cont.getContactNumber()));
+				
+				break;
+			case "2":
+				disc = new Discount(split[1],split[2],Double.valueOf(split[3]));
+				System.out.println(Validator.ValDiscountRate(split[1],split[2],Double.valueOf(split[3])));
+				
+				break;
+			case "3":
+				inv = new Invoice(split[1],split[2]);
+				System.out.println(Validator.ValInvoiceHeader(split[1],split[2]));
+				
+				break;
+			case "3A":
+				prod = new Products(split[1],split[2],Double.valueOf(split[3]));
+				System.out.println(Validator.ValInvoice(split[1],split[2],Double.valueOf(split[3])));
+				
+				break;
+			
+			default:
+				break;
+			}
+	  
+	  
+	  }
+		
+		return true;
 		
 	}
 	

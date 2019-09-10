@@ -3,7 +3,7 @@ package LetterBatch;
 public class Validator {
 
 
-	private static String ValRegistration (String companyName, String address, String postCode, String letterContactNme){
+	public static String ValRegistration (String companyName, String address, String postCode, String letterContactNme){
 		String error = "Error with ";
 		if (CompanyName(companyName) == false)
 			error = error+"company name";
@@ -25,7 +25,7 @@ public class Validator {
 	}
 
 
-	private static String ValCompDetails (String companyName, String contactName, String contactNumber){
+	public static String ValCompDetails (String companyName, String contactName, String contactNumber){
 
 		String error = "Error with ";
 		if (CompanyName(companyName) == false)
@@ -41,7 +41,7 @@ public class Validator {
 
 	}
 
-	private static String ValDiscountRate (String companyName, String letterContactNme, double discountRate){
+	public static String ValDiscountRate (String companyName, String letterContactNme, double discountRate){
 
 		String error = "Error with ";
 
@@ -61,7 +61,7 @@ public class Validator {
 
 	}
 
-	private static String ValInvoiceHeader (String companyName, String letterContactNme){
+	public static String ValInvoiceHeader (String companyName, String letterContactNme){
 		
 		String error = "Error with ";
 
@@ -77,7 +77,7 @@ public class Validator {
 		
 	}
 
-	private static String ValInvoice (String companyName, String productName, double price){
+	public static String ValInvoice (String companyName, String productName, double price){
 
 		String error = "Error with ";
 
@@ -122,14 +122,7 @@ public class Validator {
 
 	public static void main(String []args) {
 
-<<<<<<< HEAD
-		//System.out.println(ValRegistration("firdows", "1 telford street","ws10 8ur", "firdows"));
-		//System.out.println(ValCompDetails("firdows", "1 telford street", "0121 526 6878"));
-		//System.out.println(ValDiscountRate("s", "fi", 6));
-		//System.out.println(ValInvoiceHeader("",""));
-		//System.out.println(ValInvoice("firdows","seldge hammer", 23.12));
-		System.out.println(checknumber("2 55"));
-=======
+
 		System.out.println(ValRegistration("firdows", "1 telford street","ws10 8ur", "firdows"));
 		System.out.println(ValCompDetails("firdows", "1 telford street", "0121526878"));
 		System.out.println(ValDiscountRate("s", "fi", 6));
@@ -137,8 +130,6 @@ public class Validator {
 		System.out.println(ValInvoice("firdows","seldge hammer", 1));
 
 		
-
->>>>>>> branch 'firdows' of https://github.com/emdadur-capgemini/caseStudyTwo.git
 
 
 	}
