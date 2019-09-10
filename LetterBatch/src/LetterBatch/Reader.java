@@ -24,6 +24,7 @@ public class Reader {
 	  String st; 
 	  Confirmation conf;
 	  Discount disc;
+	  Invoice inv;
 	  while ((st = br.readLine()) != null) {
 		  
 		  //splitLine(st);
@@ -36,22 +37,37 @@ public class Reader {
 			case "1":
 				conf = new Confirmation(split[1],split[2],split[3],split[4]);
 				addContacts(conf,split[1]);
+				
+				//==============to be replaced with letter generation======================================
+				System.out.println("====================Company Registration=========================");
 				System.out.println(conf.getCompanyName() + conf.getAddress() + conf.getPostcode() + conf.getContactName());
 				System.out.println(conf.getContactNameList());
 				System.out.println(conf.getContactNumberList());
-				System.out.println("===========================================================================");
+				System.out.println("=================================================================");
+				//================================================================================================
+				
 				break;
 			case "2":
 				disc = new Discount(split[1],split[2],Double.valueOf(split[3]));
+				
+				//==============to be replaced with letter generation======================================
+				System.out.println("============================Discount=============================");
 				System.out.println(disc.getCompanyName() + disc.getContactName() + disc.getDiscount());
-				System.out.println("===========================================================================");
-				break;
-			case "3":
-				System.out.println("---------------------------------------------------------------------------");
+				System.out.println("=================================================================");
+				//================================================================================================
 				
 				break;
-			case "3A":
-				System.out.println("---------------------------------------------------------------------------");
+			case "3":
+				inv = new Invoice(split[1],split[2]);
+				addContacts(inv,split[1]);
+				
+				//==============to be replaced with letter generation======================================
+				System.out.println("================================Invoice==========================");
+				System.out.println(inv.getCompanyName() + inv.getContactName());
+				System.out.println(inv.getProductNameList());
+				System.out.println(inv.getPriceList());
+				System.out.println("=================================================================");
+				//================================================================================================
 				
 				break;
 			default:
@@ -62,6 +78,24 @@ public class Reader {
 		  
 	  }
 	  
+		
+	}
+	
+	public void addContacts(Invoice inv, String company) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new FileReader(file)); 
+		  
+		  String st; 
+		  while ((st = br.readLine()) != null) {
+			  
+			  String[] split = st.split("[|]");
+			  //System.out.println(split[0] + split[1] + company);
+			  if(split[0].equals("3A") && split[1].equals(company))
+				  //System.out.println(split[2] + split[3]);
+				  inv.addProduct(split[2], Double.valueOf(split[3]));
+			  else
+				  continue;
+		  }
 		
 	}
 	
