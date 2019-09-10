@@ -3,7 +3,6 @@ package LetterBatch;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 
 public class Reader {
 	
@@ -23,7 +22,12 @@ public class Reader {
 	  BufferedReader br = new BufferedReader(new FileReader(file)); 
 	  
 	  String st; 
-	  Confirmation conf;
+	  Confirmation conf = null;
+	  Discount disc;
+	  Invoice inv;
+	  
+	  Writer w = new Writer();
+
 	  while ((st = br.readLine()) != null) {
 		  
 		  //splitLine(st);
@@ -36,29 +40,51 @@ public class Reader {
 			case "1":
 				conf = new Confirmation(split[1],split[2],split[3],split[4]);
 				addContacts(conf,split[1]);
-				System.out.println(conf.getContactNameList());
-				System.out.println(conf.getContactNumberList());
+			
 				
-				Writer w = new Writer(conf);
-				
+				w.Confirmation(conf);
+
 				break;
 			case "2":
+				disc = new Discount(split[1],split[2],Double.valueOf(split[3]));
+				
+				w.Discount(disc);
 				
 				break;
 			case "3":
+				inv = new Invoice(split[1],split[2]);
+				addContacts(inv,split[1]);
 				
-				break;
-			case "3A":
+				w.Invoice(inv);
+			
 				
 				break;
 			default:
 				break;
 			}
-			System.out.println();
+
 		  
 		  
 	  }
 	  
+		
+	}
+	
+	public void addContacts(Invoice inv, String company) throws Exception {
+		
+		BufferedReader br = new BufferedReader(new FileReader(file)); 
+		  
+		  String st; 
+		  while ((st = br.readLine()) != null) {
+			  
+			  String[] split = st.split("[|]");
+			  //System.out.println(split[0] + split[1] + company);
+			  if(split[0].equals("3A") && split[1].equals(company))
+				  //System.out.println(split[2] + split[3]);
+				  inv.addProduct(split[2], Double.valueOf(split[3]));
+			  else
+				  continue;
+		  }
 		
 	}
 	

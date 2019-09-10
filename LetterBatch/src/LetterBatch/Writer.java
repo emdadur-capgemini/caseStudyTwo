@@ -25,15 +25,18 @@ public class Writer {
 	static Date today = Calendar.getInstance().getTime();        
 	static String letterDate = df.format(today);
     static File dest;
-    static String a;
 
 	
 	////group of contacts
 	ArrayList<String> contNameList = new ArrayList<String>();
 	ArrayList<String> contNoList = new ArrayList<String>();
+	
+	//group of products
+	ArrayList<String> prodNameList = new ArrayList<String>();
+	ArrayList<Double> prodCostList = new ArrayList<Double>();
 
  
-	public Writer(Confirmation name) throws IOException {
+	public void Confirmation(Confirmation name) throws IOException {
 		
 		File source = new File("/home/regen/Desktop/confirmation.txt");
         dest = new File("/home/regen/Desktop/"+name.getCompanyName()+".txt");
@@ -42,31 +45,70 @@ public class Writer {
         
 		contNameList = name.getContactNameList();
 		contNoList = name.getContactNumberList();
-        //System.out.println("This is array: " + contNameList);
-        //System.out.println("This is array: " + contNoList);
-
-        
-		
+	
 		replaceSelected("<<address1>>",name.getAddress());
 		replaceSelected("<<postcode>>", name.getPostcode());
 		replaceSelected("<<system.today>>", ("\t"+letterDate));
 		replaceSelected("<<letterName>>", name.getContactName());
 		
-//        for(int i = 0; i<contNameList.size(); i++) {
-//        	
-//        	//System.out.println("contNameList: " + contNameList.get(i));
-//        	replaceSelected("<<contactName>>", contNameList.get(i));
-//        	
-//        }
-		
 		replaceSelectedArray(contNameList, contNoList);
 		
 	}
+	
+	public void Discount(Discount disc) throws IOException {
+		
+		
+		
+		File source = new File("/home/regen/Desktop/discount.txt");
+        dest = new File("/home/regen/Desktop/"+disc.getCompanyName()+".txt");
+        copyFileUsingStream(source, dest);
+        
+        
+		replaceSelected("<<system.today>>", ("\t  "+letterDate));
+		replaceSelected("<<letterName>>", disc.getContactName());
+		
+		String discountAsString = Double.toString(disc.getDiscount());
+
+		replaceSelected("<<discount>>", discountAsString);
+		
+	}
+	
+	public void Invoice(Invoice invo) throws IOException {
+		
+		
+		
+		File source = new File("/home/regen/Desktop/invoice.txt");
+        dest = new File("/home/regen/Desktop/"+invo.getCompanyName()+".txt");
+
+        copyFileUsingStream(source, dest);
+        
+        prodNameList = invo.getProductNameList();
+        prodCostList = invo.getPriceList();
+        
+		replaceSelected("<<system.today>>", ("\t  "+letterDate));
+		replaceSelected("<<letterName>>", invo.getContactName());
+
+		//String discountAsString = Double.toString(invo.getPriceList());
+		ArrayList<String> dummy = new ArrayList<String>();
+		
+		String[] s = new String[invo.getPriceList().size()];
+		
+		for (int i = 0; i < s.length; i++) {
+		    s[i] = String.valueOf(invo.getPriceList().size());
+		    dummy.add(s[i]);
+		}
+		
+		replaceSelectedArray(prodNameList, dummy);
+
+		
+	}
+
 	
 	public static void replaceSelectedArray(ArrayList<String> name, ArrayList<String> number) {
 		
         try {
         	
+	        // input the file content to the StringBuffer "input"
             BufferedReader file = new BufferedReader(new FileReader(dest));
             StringBuffer inputBuffer = new StringBuffer();
             String line;
@@ -79,46 +121,43 @@ public class Writer {
 			file.close();
 		    String inputStr = inputBuffer.toString();
 		    
+		    //Converts given array to string for place holder replacement
 		    StringBuilder sb = new StringBuilder();
 		    for (int i = 0; i<name.size();i++)
 		    {
 		        sb.append(name.get(i));
 		        
+		        //formatting if names are too large
 		        if(name.get(i).length()<14) {
 		        	
 		        	sb.append("\t");
 		        	
 		        }
 		        
-		        sb.append("\t");
+		        //formatting to have details next to each other
+		        sb.append("\t");                    
 		        sb.append(number.get(i));
 		        sb.append("\n");
 		        sb.append("  ");
 
 		    }
 		    
-//		    StringBuilder sb1 = new StringBuilder();
-//		    for (String s1 : number)
-//		    {
-//		        sb1.append(s1);
-//		        sb1.append("\n");
-//		    }
-		    
-	        if (!name.isEmpty() && !number.isEmpty()) {
-	                      		
+		    //if statement used to distinguish between confirmation and invoice group details, replace placeholder..
+		    if(inputStr.contains("<<group.contacts>>")) {	                      		
 	        		
 	            	inputStr = inputStr.replace("<<group.contacts>>\n"+"  <<contactName>>    <<contactNumber>>", sb.toString());
-	            	//inputStr = inputStr.replace("<<contactNumber>>", sb1.toString());
-	            
-	        } 
-	        
-            
-	        
-
-        FileOutputStream fileOut = new FileOutputStream(dest);
         
-        fileOut.write(inputStr.getBytes());
-        fileOut.close();
+		    } else {
+		    	
+		    	inputStr = inputStr.replace("<<group.products>>\n" +"  <<productName>>    <<productCost>>", sb.toString());
+		    	
+		    }
+
+	        FileOutputStream fileOut = new FileOutputStream(dest);
+	        
+	        // write the new string with contents to existing file
+	        fileOut.write(inputStr.getBytes());
+	        fileOut.close();
 			
 			
 		} catch (IOException e) {
@@ -142,7 +181,7 @@ public class Writer {
 	        file.close();
 	        String inputStr = inputBuffer.toString();
 
-	        System.out.println(inputStr); // display the original file 
+	       // System.out.println(inputStr); // display the original file 
 
 	        // replace lines in the string 
 	        if (!type.isEmpty()) {
@@ -150,7 +189,7 @@ public class Writer {
 	        } 
 
 	        // display the new file 
-	        System.out.println("----------------------------------\n" + inputStr);
+	       // System.out.println("----------------------------------\n" + inputStr);
 
 	        // write the new string with contents to new file
 	        FileOutputStream fileOut = new FileOutputStream(dest);
@@ -165,17 +204,22 @@ public class Writer {
 	}
 	
 	private static void copyFileUsingStream(File source, File dest) throws IOException {
+		
 	    InputStream is = null;
 	    OutputStream os = null;
 	    try {
 	        is = new FileInputStream(source);
 	        os = new FileOutputStream(dest);
+	        
+	        //conversion for copy
 	        byte[] buffer = new byte[1024];
 	        int length;
 	        while ((length = is.read(buffer)) > 0) {
 	            os.write(buffer, 0, length);
 	        }
 	    } finally {
+	    	
+	    	//output
 	        is.close();
 	        os.close();
 	    }

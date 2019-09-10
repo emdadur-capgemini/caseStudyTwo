@@ -19,7 +19,7 @@ public class Confirmation {
 		this.address = address;
 		this.postcode = postcode;
 		this.contactName = contactName;
-		System.out.println(this.companyName + this.address + this.postcode + this.contactName);
+		//System.out.println(this.companyName + this.address + this.postcode + this.contactName);
 	}
 	
 	public String getAddress() {
