@@ -92,7 +92,7 @@ public class Validator {
 	}
 
 	private static boolean checknumber(String number) {
-		if (number.matches("[0-9 ]") && number.length()<14) {
+		if (number.matches("[0-9 ]+") && number.length()<14) {
 			return true;
 		}else return false;
 	}
@@ -106,7 +106,7 @@ public class Validator {
 		//System.out.println(ValDiscountRate("s", "fi", 6));
 		//System.out.println(ValInvoiceHeader("",""));
 		//System.out.println(ValInvoice("firdows","seldge hammer", 23.12));
-		System.out.println(checknumber("0121 832 7392"));
+		System.out.println(checknumber("2 "));
 
 
 	}
