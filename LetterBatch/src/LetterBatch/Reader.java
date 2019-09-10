@@ -38,6 +38,9 @@ public class Reader {
 				addContacts(conf,split[1]);
 				System.out.println(conf.getContactNameList());
 				System.out.println(conf.getContactNumberList());
+				
+				Writer w = new Writer(conf);
+				
 				break;
 			case "2":
 				
