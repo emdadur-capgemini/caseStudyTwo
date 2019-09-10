@@ -43,6 +43,10 @@ public class Invoice {
 	public ArrayList<Double> getPriceList() {
 		return priceList;
 	}
+
+	public ArrayList<Products> getProductList() {
+		return productList;
+	}
 	
 	
 	

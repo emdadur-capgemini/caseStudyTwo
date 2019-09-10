@@ -15,24 +15,19 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import javafx.util.Pair;
 
 public class Writer {
 	
-	// details
+	// date details
 	static DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 	static Date today = Calendar.getInstance().getTime();        
 	static String letterDate = df.format(today);
     static File dest;
-
 	
-	//group of products
-	ArrayList<String> prodNameList = new ArrayList<String>();
-	ArrayList<Double> prodCostList = new ArrayList<Double>();
-	
-	//group of contacts
+	//group of contacts and products
 	ArrayList<Contacts> contList = new ArrayList<Contacts>();
+	ArrayList<Products> prodList = new ArrayList<Products>();
  
 	public void Confirmation(Confirmation name) throws IOException {
 		
@@ -48,7 +43,6 @@ public class Writer {
 		replaceSelected("<<letterName>>", name.getContactName());
 		
 		
-		System.out.println("check this: "+ contList);
 		replaceSelectedContacts(contList);
 		
 	}
@@ -77,23 +71,12 @@ public class Writer {
         dest = new File("/home/regen/Desktop/"+invo.getCompanyName()+".txt");
         copyFileUsingStream(source, dest);
         
-        prodNameList = invo.getProductNameList();
-        prodCostList = invo.getPriceList();
-        
 		replaceSelected("<<system.today>>", ("\t  "+letterDate));
 		replaceSelected("<<letterName>>", invo.getContactName());
-
-		//String discountAsString = Double.toString(invo.getPriceList());
-		ArrayList<String> dummy = new ArrayList<String>();
 		
-		String[] s = new String[invo.getPriceList().size()];
+		prodList = invo.getProductList();
 		
-		for (int i = 0; i < s.length; i++) {
-		    s[i] = String.valueOf(invo.getPriceList().size());
-		    dummy.add(s[i]);
-		}
-		
-		//replaceSelectedArray(prodNameList, dummy);
+		replaceSelectedProducts(prodList);
 
 		
 	}
@@ -140,15 +123,72 @@ public class Writer {
 		    }
 		    
 		    //if statement used to distinguish between confirmation and invoice group details, replace placeholder..
-		    if(inputStr.contains("<<group.contacts>>")) {	                      		
+		    if(!contacts.isEmpty()) {	                      		
 	        		
 	            	inputStr = inputStr.replace("<<group.contacts>>\n"+"  <<contactName>>    <<contactNumber>>", sb.toString());
         
-		    } else {
+		    }
+
+	        FileOutputStream fileOut = new FileOutputStream(dest);
+	        
+	        // write the new string with contents to existing file
+	        fileOut.write(inputStr.getBytes());
+	        fileOut.close();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void replaceSelectedProducts(ArrayList<Products> products) {
+		
+        try {
+        	
+	        // input the file content to the StringBuffer "input"
+            BufferedReader file = new BufferedReader(new FileReader(dest));
+            StringBuffer inputBuffer = new StringBuffer();
+            String line;
+        	
+			while ((line = file.readLine()) != null) {
+			    inputBuffer.append(line);
+			    inputBuffer.append('\n');
+			}
+			
+			file.close();
+		    String inputStr = inputBuffer.toString();
+		    
+
+		    
+		    //Converts given array to string for place holder replacement
+		    StringBuilder sb = new StringBuilder();
+		    for (int i = 0; i<products.size();i++)
+		    {
+		        sb.append(products.get(i).getProductName());
+		        
+		        //formatting if names are too large
+		        if(products.get(i).getProductName().length()<14) {
+		        	
+		        	sb.append("\t");
+		        	
+		        }
+		        
+		        //formatting to have details next to each other
+		        sb.append("\t");                    
+		        sb.append(products.get(i).getPrice());
+		        sb.append("\n");
+		        sb.append("  ");
+
+		    }
+		    
+		    if(!products.isEmpty()) { 
 		    	
 		    	inputStr = inputStr.replace("<<group.products>>\n" +"  <<productName>>    <<productCost>>", sb.toString());
 		    	
-		    }
+		    }	
+		   
 
 	        FileOutputStream fileOut = new FileOutputStream(dest);
 	        
