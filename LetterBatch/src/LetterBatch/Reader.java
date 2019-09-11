@@ -2,7 +2,6 @@ package LetterBatch;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 
@@ -27,9 +26,10 @@ public class Reader {
 	  Invoice inv;
 	  Products prod;
 	  Contacts cont;
-
+	  String msg = "";
+	  int counter = 0;
 	  while ((st = br.readLine()) != null) {
-	  
+		  counter++;
 		  
 		  String[] split = st.split("[|]"); 
 		   
@@ -37,26 +37,31 @@ public class Reader {
 			
 			case "1":
 				conf = new Confirmation(split[1],split[2],split[3],split[4]);
-				System.out.println(Validator.ValRegistration(conf.getCompanyName(),conf.getAddress(), conf.getPostcode(), conf.getContactName()));
+				if(Validator.ValRegistration(conf.getCompanyName(),conf.getAddress(), conf.getPostcode(), conf.getContactName()) != "Correct")
+				msg = msg + Validator.ValRegistration(conf.getCompanyName(),conf.getAddress(), conf.getPostcode(), conf.getContactName()) + " on line " + counter  +"\n";
 				break;
 			case "1A":
 				cont = new Contacts(split[1],split[2],split[3]);
-				System.out.println(Validator.ValCompDetails(cont.getCompanyName(),cont.getContactName(),cont.getContactNumber()));
+				if(Validator.ValCompDetails(cont.getCompanyName(),cont.getContactName(),cont.getContactNumber()) != "Correct")
+				msg = msg + Validator.ValCompDetails(cont.getCompanyName(),cont.getContactName(),cont.getContactNumber()) + " on line " + counter  +"\n";
 				
 				break;
 			case "2":
 				disc = new Discount(split[1],split[2],Double.valueOf(split[3]));
-				System.out.println(Validator.ValDiscountRate(split[1],split[2],Double.valueOf(split[3])));
+				if(Validator.ValDiscountRate(split[1],split[2],Double.valueOf(split[3])) != "Correct")
+				msg = msg + Validator.ValDiscountRate(split[1],split[2],Double.valueOf(split[3])) + " on line " + counter  +"\n";
 				
 				break;
 			case "3":
 				inv = new Invoice(split[1],split[2]);
-				System.out.println(Validator.ValInvoiceHeader(split[1],split[2]));
+				if(Validator.ValInvoiceHeader(split[1],split[2]) != "Correct")
+				msg = msg + Validator.ValInvoiceHeader(split[1],split[2]) + " on line " + counter  +"\n";
 				
 				break;
 			case "3A":
 				prod = new Products(split[1],split[2],Double.valueOf(split[3]));
-				System.out.println(Validator.ValInvoice(split[1],split[2],Double.valueOf(split[3])));
+				if(Validator.ValInvoice(split[1],split[2],Double.valueOf(split[3])) != "Correct")
+				msg = msg + Validator.ValInvoice(split[1],split[2],Double.valueOf(split[3])) + " on line " + counter  +"\n";
 				
 				break;
 			
@@ -66,8 +71,14 @@ public class Reader {
 	  
 	  
 	  }
-		
-		return true;
+		if(msg == "") {
+			System.out.println("File is valid");
+			return true;
+			}
+		else {
+			System.out.println(msg);
+			return false;
+		}
 		
 	}
 	
