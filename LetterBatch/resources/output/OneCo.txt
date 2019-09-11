@@ -1,5 +1,9 @@
 						10 One Road,
+<<<<<<< HEAD
 						TF1 6SP
+=======
+						TF1 6SO
+>>>>>>> branch 'emdad' of https://github.com/emdadur-capgemini/caseStudyTwo.git
 					    	09/11/2019
 
 Dear Jeff,

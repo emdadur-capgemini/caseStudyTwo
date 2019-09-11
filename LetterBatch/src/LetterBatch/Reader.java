@@ -7,10 +7,11 @@ import java.io.FileReader;
 
 public class Reader {
 	
-	File file = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/COMPANYX.txt"); 
-	Validator validation;
-	public Reader() {
+	File file;
+	
+	public Reader(File file) {
 		
+		this.file = file;
 		
 	}
 	
