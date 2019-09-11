@@ -26,8 +26,8 @@ public class Writer {
     static File dest;
 	
 	//group of contacts and products
-	ArrayList<Contacts> contList = new ArrayList<Contacts>();
-	ArrayList<Products> prodList = new ArrayList<Products>();
+	ArrayList<Contacts> contList = new ArrayList<>();
+	ArrayList<Products> prodList = new ArrayList<>();
  
 	public void Confirmation(Confirmation name) throws IOException {
 		
