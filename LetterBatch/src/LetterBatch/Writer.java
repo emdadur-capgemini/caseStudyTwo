@@ -31,8 +31,8 @@ public class Writer {
  
 	public void Confirmation(Confirmation name) throws IOException {
 		
-		File source = new File("/home/regen/Desktop/confirmation.txt");
-        dest = new File("/home/regen/Desktop/"+name.getCompanyName()+".txt");
+		File source = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/confirmation.txt");
+        dest = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/output/"+name.getCompanyName()+".txt");
         copyFileUsingStream(source, dest);
 	
 		contList = name.getContactList();
@@ -51,8 +51,8 @@ public class Writer {
 		
 		
 		
-		File source = new File("/home/regen/Desktop/discount.txt");
-        dest = new File("/home/regen/Desktop/"+disc.getCompanyName()+".txt");
+		File source = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/discount.txt");
+        dest = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/output/"+disc.getCompanyName()+".txt");
         copyFileUsingStream(source, dest);
         
         
@@ -67,8 +67,8 @@ public class Writer {
 	
 	public void Invoice(Invoice invo) throws IOException {	
 		
-		File source = new File("/home/regen/Desktop/invoice.txt");
-        dest = new File("/home/regen/Desktop/"+invo.getCompanyName()+".txt");
+		File source = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/invoice.txt");
+        dest = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/output/"+invo.getCompanyName()+".txt");
         copyFileUsingStream(source, dest);
         
 		replaceSelected("<<system.today>>", ("\t  "+letterDate));

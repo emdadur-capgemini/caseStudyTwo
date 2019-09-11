@@ -111,20 +111,20 @@ public class Reader {
 				addContacts(conf,split[1]);
 			
 				
-				//w.Confirmation(conf);
+				w.Confirmation(conf);
 
 				break;
 			case "2":
 				disc = new Discount(split[1],split[2],Double.valueOf(split[3]));
 				
-				//w.Discount(disc);
+				w.Discount(disc);
 				
 				break;
 			case "3":
 				inv = new Invoice(split[1],split[2]);
 				addContacts(inv,split[1]);
 				
-				//w.Invoice(inv);
+				w.Invoice(inv);
 			
 				
 				break;
