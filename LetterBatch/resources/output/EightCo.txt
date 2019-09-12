@@ -10,9 +10,15 @@ provided us with:
 
   Prakash Poye		01792 200100
   Martin Fallout	01792 700100
+<<<<<<< HEAD
   Bal Findu		01792 700100
   Carl Cobol		01792 700100
   Deepak Singh		01792 700100
+=======
+  Bal Findu		0791 244111
+  Carl Cobol		01792 700100
+  Deepak Singh		0792 334442
+>>>>>>> branch 'emdad' of https://github.com/emdadur-capgemini/caseStudyTwo.git
   	
 
 If any of this information is incorrect, please contact us as 

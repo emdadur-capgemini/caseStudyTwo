@@ -6,9 +6,15 @@ Dear Benny,
 This is confirmation of the products purchased on the above
 date:
 
+<<<<<<< HEAD
   Astroturf		750.4
   Bricks		247.4
   Mortar		49.43
+=======
+  Astroturf		750.0
+  Bricks		247.4
+  Mortar		49.99
+>>>>>>> branch 'emdad' of https://github.com/emdadur-capgemini/caseStudyTwo.git
   Concrete		35.99
   	
 
