@@ -14,16 +14,14 @@
 1|EightCo|888 Eights Road|NN11 5TN|Samit
 1A|EightCo|Prakash Poye|01792 200100
 1A|EightCo|Martin Fallout|01792 700100
-1A|EightCo|Bal Findu|0791 244111
+1A|EightCo|Bal Findu|01792 700100
 1A|EightCo|Carl Cobol|01792 700100
-1A|EightCo|Deepak Singh|0792 334442
+1A|EightCo|Deepak Singh|01792 700100
 3|SevenCo|Lesley
 3A|SevenCo|Big Shed|299.99
 2|NineCo|Jack|1.5
 3|TenCo|Benny
-3A|TenCo|Astroturf|750.00
+3A|TenCo|Astroturf|750.40
 3A|TenCo|Bricks|247.40
-3A|TenCo|Mortar|49.99
+3A|TenCo|Mortar|49.43
 3A|TenCo|Concrete|35.99
-2|Test|Emdad|50
-2|Test1|testing|10

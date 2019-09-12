@@ -1,15 +1,13 @@
 						   Via email
-					    	  09/12/2019
+					    <<system.today>>
 
-Dear Lesley,
+Dear <<letterName>>,
 
 This is confirmation of the products purchased on the above
 date:
 
-  Sledgehammer		29.99
-  Lawnmower		89.99
-  Hammer		9.5
-  	
+  <<group.products>>
+  <<productName>>    <<productCost>>	
 
 If any of this information is incorrect, please contact us as 
 soon as possible.
