@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 2|EMD|good|10|too much fields
 4|invalid|type|encountered
 1|OneCo|10 One Road|TF1 6SP|Jeff
 1A|OneCo|Jeff guy|07828116767
 1A|oneco|ilian|07342148157
+=======
+2|EMD|testing|1000
+>>>>>>> branch 'emdad' of https://github.com/emdadur-capgemini/caseStudyTwo.git

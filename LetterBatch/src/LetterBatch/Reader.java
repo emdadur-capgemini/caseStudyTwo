@@ -10,9 +10,10 @@ import java.nio.file.Path;
 
 public class Reader {
 	
-	File file;
 	//File file = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/COMPANYX.txt"); 
 	Path path;
+	File file;
+	
 	public Reader(Path path) {
 		
 		this.path = path;
@@ -148,6 +149,7 @@ public class Reader {
 		
 		  BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"));
 		  
+
 		  String st; 
 		  while ((st = br.readLine()) != null) {
 			  

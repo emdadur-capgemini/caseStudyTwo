@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
@@ -37,10 +38,6 @@ public class Polling {
 		directories(dir);
 	}
 
-	// File file;
-
-	// File file = new
-	// File("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANYX.txt");
 
 	// Register the given directory with the WatchService; This function will be.
 	// called by FileVisitor
@@ -153,7 +150,12 @@ public class Polling {
 
 					} else {
 
-						System.out.println("Move to error folder" + child);
+						System.out.println("Moving " + child + "to error folder");						
+						try {
+							Files.move(child,Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/error/"+child.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+						}
 
 					}
 
@@ -173,5 +175,7 @@ public class Polling {
 			}
 		}
 	}
+	
+	
 
 }

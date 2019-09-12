@@ -34,20 +34,6 @@ public class LetterBatch {
 	
 	}
 	
-	public static void moveFile(Path file, Path destination) {
-		
-		//take path of a file and put into specific folder
-        try {
-        	
-            Files.move(file, destination, StandardCopyOption.REPLACE_EXISTING);
-            //Files.move(Paths.get(sourceFile.getPath()), Paths.get(destFile.getPath()), StandardCopyOption.REPLACE_EXISTING);
-            
-        } catch (IOException e) {
-        	
-        }
-	    
-	}
-	
 	public static void createLogs(String name, String logs) {
 		
 //		String name = "errorFileForinput.txt";

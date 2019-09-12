@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 
 public class LetterBatch {
 	public static void main (String[] args) {
+
 		//get directory from Polling class
 		Path directory = Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/input");
         Polling poller;
@@ -16,11 +17,10 @@ public class LetterBatch {
 			// TODO Auto-generated catch block.
 			System.out.println("Input directory not found");
 		}
-		
-		
+	
 		
 		Reader inputFile = new Reader(directory);
-		if(inputFile.isValidFile())
+		if(inputFile.isValidFile()) 
 			inputFile.generateAllLetters();
 		}
 	
