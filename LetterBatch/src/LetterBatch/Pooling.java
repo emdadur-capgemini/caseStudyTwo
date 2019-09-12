@@ -22,7 +22,7 @@ public class Pooling {
     private final WatchService watcher;
     private final Map<WatchKey, Path> keys;
     private final String fileName = "";
- 
+    static File file;
    
      // Creates a WatchService and registers the given directory
     Pooling(Path dir) throws IOException {
@@ -32,29 +32,61 @@ public class Pooling {
         directories(dir);
     }
     
-    String abc;
     
     
     //File file;
-    File file = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/COMPANYX.txt");
     
-
- 
+    //File file = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANYX.txt");
+    
+   
+    
+   
     
      // Register the given directory with the WatchService; This function will be called by FileVisitor  
     private void registerDirectory(Path dir) throws IOException
     {
         WatchKey key = dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
         keys.put(key, dir);
+      
         
-		Reader read = new Reader(file);
-		try {
-			System.out.println("here");
-			read.readFile();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        String x = "/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANY*.txt";
+        Path path = Paths.get(x);
+        
+        
+        File folder = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/");
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i++) {
+          if (listOfFiles[i].isFile()) {
+            
+            if(listOfFiles[i].getName().toString().startsWith("COMPANY") && 
+            		listOfFiles[i].getName().toString().endsWith(".txt")) {
+            	
+                file = new File(listOfFiles[i].getPath());
+                Path abc = Paths.get(listOfFiles[i].getPath());
+                Reader read = new Reader(file);
+        		try {
+        			read.readFile();
+        		} catch (Exception e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}            	
+            }
+            
+          } else {
+        	  
+        	  System.out.println("Incorrect File Format.");
+        	  
+          }
+        }
+        
+        
+		
+        
+      
+    
+
+		
 
     }
  
@@ -76,8 +108,12 @@ public class Pooling {
     //Process all events for keys queued to the watcher
 
     void processEvents() {
+    	
+    	
+    	
         for (boolean check = true;check;) {
- 
+        	
+        	
         	
             // wait for key to be signalled
             WatchKey key;
@@ -88,7 +124,9 @@ public class Pooling {
             }
  
             Path dir = keys.get(key);
- 
+            
+            System.out.println("check this ");
+            
             for (WatchEvent<?> event : key.pollEvents()) {
                 @SuppressWarnings("rawtypes")
                 WatchEvent.Kind kind = event.kind();
@@ -98,7 +136,9 @@ public class Pooling {
                 Path name = ((WatchEvent<Path>)event).context();
                 Path child = dir.resolve(name);
  
-                System.out.format("%s: %s\n", event.kind().name(), child);
+	            //System.out.println("check this " + child);
+
+               // System.out.format("%s: %s\n", event.kind().name(), child);
  
                 // if directory is created, and watching recursively, then register it and its sub-directories
                 if (kind == ENTRY_CREATE) {
@@ -121,16 +161,14 @@ public class Pooling {
                     	System.out.println(x.getMessage());
                     	
                     }
-                    
-                    //System.out.println("/home/regen/git/caseStudyTwo/LetterBatch/resources/q.txt");
-                    
+                                        
                     if(child.toString().contains("q.txt")) {
                     	
                     	System.out.println("q found. Program terminated.");
                     	check=false;
                     }
                     
-                    if(child.toString().startsWith("/home/regen/git/caseStudyTwo/LetterBatch/resources/COMPANY") 
+                    if(child.toString().startsWith("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANY") 
                     		&& child.toString().endsWith(".txt")){
                     	
                     	System.out.println("read file: " + child);
@@ -145,7 +183,7 @@ public class Pooling {
                     	
                     } else {
                     	
-                    	System.out.println("faile file: " + child);
+                    	System.out.println("Move to error folder" + child);
 
                     	
                     }

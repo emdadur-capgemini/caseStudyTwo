@@ -9,7 +9,7 @@ public class LetterBatch {
 		//Reader read = new Reader();
 		try {
 
-	        Path dir = Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources");
+	        Path dir = Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/input");
 	        new Pooling(dir).processEvents();
 	        
 			//read.readFile();

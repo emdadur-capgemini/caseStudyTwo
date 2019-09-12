@@ -51,7 +51,7 @@ public class Validator {
 		if (LetterContactName(letterContactNme) == false)
 			error = error +"Letter Contact Name";
 
-		if (discountRate <1 && discountRate>50)
+		if (discountRate <1 || discountRate>50)
 			error = error +"Discount Rate";
 
 		if (error.equals("Error with ")) {
