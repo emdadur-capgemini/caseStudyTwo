@@ -1,5 +1,17 @@
-2|EMD|good|10|too much fields
+2|EMD|good|10|this field is not expected
 4|invalid|type|encountered
 1|OneCo|10 One Road|TF1 6SP|Jeff
 1A|OneCo|Jeff guy|07828116767
 1A|oneco|ilian|07342148157
+1|TestLTD|10 One Road|TF1 6SPqe|Jeff
+1A|TestLTD|Mark Shark|this should be a number
+1A|TestLTD|this should be less than 20 characters|01952 277354
+1A|TestLTD|Gary Grunt|01952 742354
+2|TwoCo|Jenny|this should be a number
+2|this should be less than 20 characters|Jenny|20
+3|ThreeCo|Lesley
+3A|ThreeCo|Sledgehammer|29.999
+3A|ThreeCo|Lawnmower|89.99
+3A|ThreeCo|Hammer|9.50
+2|FourCo|Brad|5
+2|FiveCo|Tina|7.5

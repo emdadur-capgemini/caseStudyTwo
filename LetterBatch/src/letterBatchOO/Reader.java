@@ -89,7 +89,12 @@ public class Reader {
 						break;
 					}
 					//add an ArrayList element of type DiscountLetter
+					try {
 					letter.add(new DiscountLetter(lineCount, split[0], split[1], split[2], Double.valueOf(split[3])));
+					}catch(NumberFormatException ex) {
+						error = error.concat("\nline " + lineCount + ": discount procentage should be a number");
+						break;
+					}
 
 					break;
 				case "3":
@@ -173,13 +178,14 @@ public class Reader {
 					break;
 				default:
 					//TODO catch if type nor recognised, should never go here as it is already catched before it reaches here 
-					error = error.concat("\nline " + lineCount + ": invalid letter type");
+					error = error.concat("\nline " + (int)(iteratorSkippedLineNumber.next()) + ": invalid letter type");
 					
 					break;
 				}
-				if(!companyMatched)
-					error = error.concat("\nline " + lineCount + ": company " + split[1] + " does not exist in this file");
-				
+				if(!companyMatched) {
+					error = error.concat("\nline " + (int)(iteratorSkippedLineNumber.next()) + ": company " + split[1] + " does not exist in this file");
+					iteratorSkippedLineNumber.remove();
+				}
 
 			}
 
