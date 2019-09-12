@@ -155,6 +155,7 @@ public class Polling {
 
 					} else {
 
+						
 						try {
 							Files.move(child,Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/error/"+child.getFileName()), StandardCopyOption.REPLACE_EXISTING);
 						} catch (IOException e) {
