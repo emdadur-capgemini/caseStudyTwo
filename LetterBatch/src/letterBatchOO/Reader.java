@@ -2,7 +2,10 @@ package letterBatchOO;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -168,7 +171,7 @@ public class Reader {
 			}
 
 		} catch (IOException ex) {
-			System.out.println("File Not Found!");
+			System.out.println("All files read.");
 		}
 
 	}
@@ -193,6 +196,18 @@ public class Reader {
 		if(this.error.equals(""))
 			return true;
 		else {
+						
+			try {
+				
+				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/home/regen/git/caseStudyTwo/LetterBatch/resources/error/"+path.getFileName().toString() + ".log.txt"), "utf-8"));		    
+			    writer.write(error);
+		        writer.close();
+	    
+			} catch (IOException ex) {
+			    // Report
+				System.out.print(ex.getMessage());
+			} 
+			
 			System.out.println(error);
 			//TODO call function to print error file and pass in the error message
 			return false;

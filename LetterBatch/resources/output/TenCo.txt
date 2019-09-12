@@ -6,9 +6,9 @@ Dear Benny,
 This is confirmation of the products purchased on the above
 date:
 
-  Astroturf		750.0
+  Astroturf		750.4
   Bricks		247.4
-  Mortar		49.99
+  Mortar		49.43
   Concrete		35.99
   	
 
