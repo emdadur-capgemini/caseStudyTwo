@@ -59,45 +59,55 @@ public class Reader {
 
 				//first element of the array contains the type of letter
 				switch (split[0]) {
-				//TODO check that there aren't more elements than expected
 				case "1":
 
+					if(split.length != 5) {
+						error = error.concat("\nline " + lineCount + ": unexpected amount of fields");
+						break;
+					}
 					//add an ArrayList element of type ConfirmationLetter
 					letter.add(new ConfirmationLetter(lineCount, split[0], split[1], split[2], split[3], split[4]));
-
-					System.out.println(split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
 					break;
 
 				case "1A":
+					if(split.length != 4) {
+						error = error.concat("\nline " + lineCount + ": unexpected amount of fields");
+						break;
+					}
 					//add to ArrayList to deal with after all letters are initialised
 					skipped.add(currentLine);
 					skippedLineNumber.add(lineCount);
 					break;
 				case "2":
+					if(split.length != 4) {
+						error = error.concat("\nline " + lineCount + ": unexpected amount of fields");
+						break;
+					}
 					//add an ArrayList element of type DiscountLetter
 					letter.add(new DiscountLetter(lineCount, split[0], split[1], split[2], Double.valueOf(split[3])));
 
-					System.out.println(split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
-
 					break;
 				case "3":
+					if(split.length != 4) {
+						error = error.concat("\nline " + lineCount + ": unexpected amount of fields");
+						break;
+					}
 					//add an ArrayList element of type InvoiceLetter
 					letter.add(new InvoiceLetter(lineCount, split[0], split[1], split[2]));
 
-					System.out.println(split[0] + "  " + split[1] + "  " + split[2]);
-
 					break;
 				case "3A":
-
+					if(split.length != 4) {
+						error = error.concat("\nline " + lineCount + ": unexpected amount of fields");
+						break;
+					}
 					//add to ArrayList to deal with after all letters are initialised
 					skipped.add(currentLine);
 					skippedLineNumber.add(lineCount);
 
 					break;
 				default:
-					//TODO detect that an invalid type was detected
-					//idea have a string = "" and if it is wrong add to this string, then concatenate it with the string from the other validating functions
-					System.out.println("Invalid type of letter");
+					error = error.concat("\nline " + lineCount + ": invalid letter type");
 					break;
 				}
 
@@ -112,6 +122,7 @@ public class Reader {
 			while (iteratorSkipped.hasNext()) {
 				String temp = iteratorSkipped.next();
 
+				boolean companyMatched = false;
 				//split the string on every '|' character found, stored in array
 				String[] split = temp.split("[|]");
 				switch (split[0]) {
@@ -125,13 +136,14 @@ public class Reader {
 					iteratorLetters = letter.listIterator();
 					while (iteratorLetters.hasNext()) {
 						tempLetter = iteratorLetters.next();
+						int tempLineNumber = (int)(iteratorSkippedLineNumber.next());
 						if (tempLetter.getType().equals("1") && tempLetter.getCompanyName().equals(split[1])) {
 							tempContactList = (ConfirmationLetter) (tempLetter);
-							tempContactList.addContact((int)(iteratorSkippedLineNumber.next()),split[0],split[1], split[2], split[3]);
+							tempContactList.addContact(tempLineNumber,split[0],split[1], split[2], split[3]);
 							iteratorLetters.set((LetterInterface) (tempContactList));
 							System.out.println(
 									"success:" + split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
-
+							companyMatched = true;
 							break;
 						}
 					}
@@ -153,6 +165,7 @@ public class Reader {
 							iteratorLetters.set((LetterInterface) (tempInvoice));
 							System.out.println(
 									"success:" + split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
+							companyMatched = true;
 							break;
 						}
 					}
@@ -160,10 +173,13 @@ public class Reader {
 					break;
 				default:
 					//TODO catch if type nor recognised, should never go here as it is already catched before it reaches here 
-					System.out.println("No type" + split[0]);
-
+					error = error.concat("\nline " + lineCount + ": invalid letter type");
+					
 					break;
 				}
+				if(!companyMatched)
+					error = error.concat("\nline " + lineCount + ": company " + split[1] + " does not exist in this file");
+				
 
 			}
 
