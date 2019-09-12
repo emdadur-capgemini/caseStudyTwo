@@ -23,6 +23,7 @@ public class Pooling {
     private final Map<WatchKey, Path> keys;
     private final String fileName = "";
     static File file;
+    static Path path;
    
      // Creates a WatchService and registers the given directory
     Pooling(Path dir) throws IOException {
@@ -48,9 +49,7 @@ public class Pooling {
         WatchKey key = dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
         keys.put(key, dir);
       
-        
-        String x = "/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANY*.txt";
-        Path path = Paths.get(x);
+       
         
         
         File folder = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/");
@@ -63,7 +62,11 @@ public class Pooling {
             		listOfFiles[i].getName().toString().endsWith(".txt")) {
             	
                 file = new File(listOfFiles[i].getPath());
-                Reader read = new Reader(file);
+                
+                path = Paths.get(listOfFiles[i].getAbsolutePath());
+               // System.out.println("check me: " + abc);
+                
+                Reader read = new Reader(path);
         		try {
         			read.readFile();
         		} catch (Exception e) {
@@ -142,7 +145,7 @@ public class Pooling {
                 // if directory is created, and watching recursively, then register it and its sub-directories
                 if (kind == ENTRY_CREATE) {
                 	
-                	Reader read = new Reader(file);
+                	Reader read = new Reader(path);
             		try {
             			System.out.println("here");
             			read.readFile();
@@ -172,7 +175,7 @@ public class Pooling {
                     	
                     	System.out.println("read file: " + child);
                     	File abc = new File(child.toString());
-                    	read = new Reader(abc);
+                    	read = new Reader(path);
                     	try {
 							read.readFile();
 						} catch (Exception e) {

@@ -3,15 +3,18 @@ package LetterBatch;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Reader {
 	
 	//File file = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/COMPANYX.txt"); 
-	File file;
+	Path path;
 	
-	public Reader(File file) {
+	public Reader(Path path) {
 		
-		this.file = file;
+		this.path = path;
 		
 	}
 	
@@ -21,7 +24,7 @@ public class Reader {
 	  // double backquote is to avoid compiler interpret words 
 	  // like \test as \t (ie. as a escape sequence) 
 	  
-	  BufferedReader br = new BufferedReader(new FileReader(file)); 
+	  BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"));
 	  
 	  String st; 
 	  Confirmation conf = null;
@@ -74,7 +77,7 @@ public class Reader {
 	
 	public void addContacts(Invoice inv, String company) throws Exception {
 		
-		BufferedReader br = new BufferedReader(new FileReader(file)); 
+		  BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"));
 		  
 		  String st; 
 		  while ((st = br.readLine()) != null) {
@@ -92,7 +95,7 @@ public class Reader {
 	
 	public void addContacts(Confirmation conf, String company) throws Exception {
 		
-		BufferedReader br = new BufferedReader(new FileReader(file)); 
+		  BufferedReader br = Files.newBufferedReader(path, Charset.forName("UTF-8"));
 		  
 		  String st; 
 		  while ((st = br.readLine()) != null) {
