@@ -64,9 +64,10 @@ public class Pooling {
                 file = new File(listOfFiles[i].getPath());
                 
                 path = Paths.get(listOfFiles[i].getAbsolutePath());
-               // System.out.println("check me: " + abc);
+                // System.out.println("check me: " + abc);
                 
                 Reader read = new Reader(path);
+
         		try {
         			read.readFile();
         		} catch (Exception e) {

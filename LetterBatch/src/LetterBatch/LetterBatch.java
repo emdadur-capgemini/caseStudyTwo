@@ -21,6 +21,7 @@ public class LetterBatch {
 	public static void main (String[] args) {
 		//Reader read = new Reader();
 		try {
+
 	        Path dir = Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/input");
 	        new Pooling(dir).processEvents();
 	        
