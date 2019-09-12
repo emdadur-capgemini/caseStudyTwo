@@ -3,7 +3,7 @@ package LetterBatch;
 public class Validator {
 
 
-	private static String ValRegistration (String companyType, String companyName, String address, String postCode, String letterContactNme){
+	public static String ValRegistration (String companyType, String companyName, String address, String postCode, String letterContactNme){
 		String error = "Error with ";
 		String cType = "1";
 
@@ -29,7 +29,7 @@ public class Validator {
 	}
 
 
-	private static String ValCompDetails (String companyType, String companyName, String contactName, String contactNumber){
+	public static String ValCompDetails (String companyType, String companyName, String contactName, String contactNumber){
 		String error = "Error with ";
 		String cType = "1A";
 
@@ -48,7 +48,7 @@ public class Validator {
 
 	}
 
-	private static String ValDiscountRate (String companyType, String companyName, String letterContactNme, double discountRate){
+	public static String ValDiscountRate (String companyType, String companyName, String letterContactNme, double discountRate){
 
 		String error = "Error with ";
 		String cType = "2";
@@ -62,7 +62,7 @@ public class Validator {
 		if (LetterContactName(letterContactNme) == false)
 			error = error +"Letter Contact Name";
 
-		if (discountRate <1 && discountRate>50)
+		if (discountRate <1.00|| discountRate >50.00)
 			error = error +"Discount Rate";
 
 		if (error.equals("Error with ")) {
@@ -72,7 +72,7 @@ public class Validator {
 
 	}
 
-	private static String ValInvoiceHeader (String companyType, String companyName, String letterContactNme){
+	public static String ValInvoiceHeader (String companyType, String companyName, String letterContactNme){
 
 		String error = "Error with ";
 		String cType = "3";
@@ -92,7 +92,7 @@ public class Validator {
 
 	}
 
-	private static String ValInvoice (String companyType, String companyName, String productName, double price){
+	public static String ValInvoice (String companyType, String companyName, String productName, double price){
 
 		String error = "Error with ";
 		String cType = "3A";
@@ -105,8 +105,7 @@ public class Validator {
 
 		if (productName.length()<3 && productName.length()>50)
 			error = error+"product name ";
-
-		//if (price <0) {
+		
 		if ((price <0)||(price*100 != (int)(price*100)))
 			error = error+"price ";	
 
@@ -137,11 +136,11 @@ public class Validator {
 
 	public static void main(String []args) {
 
-		System.out.println(ValRegistration("1", "firdows", "1 telford street","tf1 6sp", "firdows"));
-		System.out.println(ValCompDetails("1A", "firdows", "1 telford street", "0121 456 9213"));
-		System.out.println(ValDiscountRate("2", "capgemini", "fi", 6));
-		System.out.println(ValInvoiceHeader("3", "FIDOWS","firdows"));
-		System.out.println(ValInvoice("3A","firdows","seldge hammer", 1));
+//		System.out.println(ValRegistration("1", "firdows", "1 telford street","tf1 6sp", "firdows"));
+		System.out.println(ValCompDetails("1A", "firdows", "1 telford street", "012dshajsjf8888ew88wu8u3u8"));
+//		System.out.println(ValDiscountRate("2", "capgemini", "fi", -1));
+//		System.out.println(ValInvoiceHeader("3", "FIDOWS","firdows"));
+//		System.out.println(ValInvoice("3A","firdows","seldge hammer", 1));
 
 	}
 
