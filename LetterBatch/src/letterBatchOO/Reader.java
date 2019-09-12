@@ -168,7 +168,7 @@ public class Reader {
 			}
 
 		} catch (IOException ex) {
-			System.out.println("File Not Found!");
+			System.out.println("All files read.");
 		}
 
 	}
