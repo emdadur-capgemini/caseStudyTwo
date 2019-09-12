@@ -30,7 +30,7 @@ public class ConfirmationLetter extends Letter implements LetterInterface{
 	public void generateLetter() {
 		
 
-		File source = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/confirmation.txt");
+		File source = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/templates/confirmation.txt");
         dest = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/output/"+super.companyName+".txt");
         try {
 			super.copyFileUsingStream(source, dest);

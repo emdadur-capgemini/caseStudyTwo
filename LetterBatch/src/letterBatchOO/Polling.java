@@ -25,7 +25,6 @@ public class Polling {
 
 	private final WatchService watcher;
 	private final Map<WatchKey, Path> keys;
-	private final String fileName = "";
 	static File file;
 	static Path path;
 	private Reader inputFile;
@@ -90,7 +89,7 @@ public class Polling {
 
 	// Process all events for keys queued to the watcher
 
-	void processEvents() {
+	public void processEvents() {
 
 		for (boolean check = true; check;) {
 
@@ -128,13 +127,19 @@ public class Polling {
 
 					}
 
-					if (child.toString().contains("q.txt")) {
+					if (child.toString().endsWith("input/q.txt")) {
 
 						System.out.println("q.txt found. Program terminated.");
+						try {
+							Files.move(child,Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/archive/"+child.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+						}
 						check = false;
+						break;
 					}
 
-					if (child.toString().startsWith("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANY")
+					else if (child.toString().startsWith("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANY")
 							&& child.toString().endsWith(".txt")) {
 
 						try {

@@ -18,10 +18,10 @@ public class LetterBatch {
 			System.out.println("Input directory not found");
 		}
 	
-		
-		Reader inputFile = new Reader(directory);
-		if(inputFile.isValidFile()) 
-			inputFile.generateAllLetters();
+//		
+//		Reader inputFile = new Reader(directory);
+//		if(inputFile.isValidFile()) 
+//			inputFile.generateAllLetters();
 		}
 	
 }

@@ -9,6 +9,8 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -91,7 +93,7 @@ public class Reader {
 
 					break;
 				case "3":
-					if(split.length != 4) {
+					if(split.length != 3) {
 						error = error.concat("\nline " + lineCount + ": unexpected amount of fields");
 						break;
 					}
@@ -139,13 +141,10 @@ public class Reader {
 					iteratorLetters = letter.listIterator();
 					while (iteratorLetters.hasNext()) {
 						tempLetter = iteratorLetters.next();
-						int tempLineNumber = (int)(iteratorSkippedLineNumber.next());
 						if (tempLetter.getType().equals("1") && tempLetter.getCompanyName().equals(split[1])) {
 							tempContactList = (ConfirmationLetter) (tempLetter);
-							tempContactList.addContact(tempLineNumber,split[0],split[1], split[2], split[3]);
+							tempContactList.addContact((int)(iteratorSkippedLineNumber.next()),split[0],split[1], split[2], split[3]);
 							iteratorLetters.set((LetterInterface) (tempContactList));
-							System.out.println(
-									"success:" + split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
 							companyMatched = true;
 							break;
 						}
@@ -166,8 +165,6 @@ public class Reader {
 							tempInvoice = (InvoiceLetter) (tempLetter);
 							tempInvoice.addProduct((int)(iteratorSkippedLineNumber.next()),split[0],split[1],split[2], Double.valueOf(split[3]));
 							iteratorLetters.set((LetterInterface) (tempInvoice));
-							System.out.println(
-									"success:" + split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
 							companyMatched = true;
 							break;
 						}
@@ -195,37 +192,49 @@ public class Reader {
 	/**
 	 * When called this subroutine iterates all letter objects and checks if they
 	 * contain valid data with reference to the customer requirements.
+	 * If there is an error in the file (taking into account previous checks) a log file
+	 * is created in the error directory and the original file is moved to the error directory
 	 * 
 	 * @return returns true if all entries in the file are valid, else it returns true
 	 */
 	public boolean isValidFile() {
 		letterIterator = this.letter.iterator();
-		//iterate all letter objects generated from the file
-		while(letterIterator.hasNext()) {
-			//check if the object contains valid data,
-			//if yes empty string is returned,
-			//if no error message is returned
+		// iterate all letter objects generated from the file
+		while (letterIterator.hasNext()) {
+			// check if the object contains valid data,
+			// if yes empty string is returned,
+			// if no error message is returned
 			error = error.concat(letterIterator.next().isValid());
-			
+
 		}
-		
-		if(this.error.equals(""))
+
+		if (this.error.equals(""))
 			return true;
 		else {
-						
+
 			try {
-				
-				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/home/regen/git/caseStudyTwo/LetterBatch/resources/error/"+path.getFileName().toString() + ".log.txt"), "utf-8"));		    
-			    writer.write(error);
-		        writer.close();
-	    
+
+				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+						new FileOutputStream("/home/regen/git/caseStudyTwo/LetterBatch/resources/error/"
+								+ path.getFileName().toString().substring(0, path.getFileName().toString().length() - 4)
+								+ "-log.txt"),
+						"utf-8"));
+				writer.write(error);
+				writer.close();
+
 			} catch (IOException ex) {
-			    // Report
+				// Report
 				System.out.print(ex.getMessage());
-			} 
-			
-			System.out.println(error);
-			//TODO call function to print error file and pass in the error message
+			}
+			try {
+				Files.move(path,
+						Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/error/" + path.getFileName()),
+						StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+			}
+
+			// TODO call function to print error file and pass in the error message
 			return false;
 		}
 	}
@@ -233,6 +242,7 @@ public class Reader {
 	/**
 	 * When called this subroutine iterates all letter objects and 
 	 * generates letters for them.
+	 * After generating letters the original file is moved to the archive folder
 	 */
 	public void generateAllLetters() {
 		
@@ -243,6 +253,13 @@ public class Reader {
 			letterIterator.next().generateLetter();
 			
 		}
+		
+		try {
+			Files.move(path,Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/archive/"+path.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+		}
+		
 	}
 
 }

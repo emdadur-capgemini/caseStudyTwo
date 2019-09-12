@@ -27,7 +27,7 @@ public class InvoiceLetter extends Letter implements LetterInterface{
 	public void generateLetter() {
 		
 
-		File source = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/invoice.txt");
+		File source = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/templates/invoice.txt");
         dest = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/output/"+super.companyName+".txt");
         try {
 			copyFileUsingStream(source, dest);

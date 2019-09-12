@@ -14,28 +14,25 @@ import java.util.Calendar;
 import java.util.Date;
 
 public abstract class Letter {
-	
+
 	final protected String type;
 	protected String companyName;
 	protected String errorMsg = "";
 	protected int lineCount;
 
-	
-    static File dest;
+	static File dest;
 
 	// date details
 	static DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-	static Date today = Calendar.getInstance().getTime();        
+	static Date today = Calendar.getInstance().getTime();
 	static String letterDate = df.format(today);
-	
-	
-	
-	public Letter(int line, String type, String companyName){
+
+	public Letter(int line, String type, String companyName) {
 
 		this.lineCount = line;
 		this.type = type;
 		this.companyName = companyName;
-		
+
 	}
 
 	public String getType() {
@@ -45,7 +42,7 @@ public abstract class Letter {
 	public String getCompanyName() {
 		return companyName;
 	}
-	
+
 	protected boolean checkCompanyName() {
 		if (companyName.length() < 3 || companyName.length() > 20) {
 			return false;
@@ -64,70 +61,61 @@ public abstract class Letter {
 
 	}
 
-	
-	
 	public static void replaceSelected(String replaceWith, String type) {
-	    try {
-	        // input the file content to the StringBuffer "input"
-	        BufferedReader file = new BufferedReader(new FileReader(dest));
-	        StringBuffer inputBuffer = new StringBuffer();
-	        String line;
+		try {
+			// input the file content to the StringBuffer "input"
+			BufferedReader file = new BufferedReader(new FileReader(dest));
+			StringBuffer inputBuffer = new StringBuffer();
+			String line;
 
-	        while ((line = file.readLine()) != null) {
-	            inputBuffer.append(line);
-	            inputBuffer.append('\n');
-	        }
-	        file.close();
-	        String inputStr = inputBuffer.toString();
+			while ((line = file.readLine()) != null) {
+				inputBuffer.append(line);
+				inputBuffer.append('\n');
+			}
+			file.close();
+			String inputStr = inputBuffer.toString();
 
-	       // System.out.println(inputStr); // display the original file 
+			// System.out.println(inputStr); // display the original file
 
-	        // replace lines in the string 
-	        if (!type.isEmpty()) {
-	            inputStr = inputStr.replace(replaceWith, type); 
-	        } 
+			// replace lines in the string
+			if (!type.isEmpty()) {
+				inputStr = inputStr.replace(replaceWith, type);
+			}
 
-	        // display the new file 
-	       // System.out.println("----------------------------------\n" + inputStr);
+			// display the new file
+			// System.out.println("----------------------------------\n" + inputStr);
 
-	        // write the new string with contents to new file
-	        FileOutputStream fileOut = new FileOutputStream(dest);
-	        	        
-	        fileOut.write(inputStr.getBytes());
-	        fileOut.close();
-	        
+			// write the new string with contents to new file
+			FileOutputStream fileOut = new FileOutputStream(dest);
 
-	    } catch (Exception e) {
-	        System.out.println("Problem reading file.");
-	    }
+			fileOut.write(inputStr.getBytes());
+			fileOut.close();
+
+		} catch (Exception e) {
+			System.out.println("Problem reading file.");
+		}
 	}
-	
-	
-protected static void copyFileUsingStream(File source, File dest) throws IOException {
-		
-	    InputStream is = null;
-	    OutputStream os = null;
-	    try {
-	        is = new FileInputStream(source);
-	        os = new FileOutputStream(dest);
-	        
-	        //conversion for copy
-	        byte[] buffer = new byte[1024];
-	        int length;
-	        while ((length = is.read(buffer)) > 0) {
-	            os.write(buffer, 0, length);
-	        }
-	    } finally {
-	    	
-	    	//output
-	        is.close();
-	        os.close();
-	    }
+
+	protected static void copyFileUsingStream(File source, File dest) throws IOException {
+
+		InputStream is = null;
+		OutputStream os = null;
+		try {
+			is = new FileInputStream(source);
+			os = new FileOutputStream(dest);
+
+			// conversion for copy
+			byte[] buffer = new byte[1024];
+			int length;
+			while ((length = is.read(buffer)) > 0) {
+				os.write(buffer, 0, length);
+			}
+		} finally {
+
+			// output
+			is.close();
+			os.close();
+		}
 	}
-	
 
-
-
-	
-	
 }

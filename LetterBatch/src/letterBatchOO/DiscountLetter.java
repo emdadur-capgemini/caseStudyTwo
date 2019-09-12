@@ -21,7 +21,7 @@ public class DiscountLetter extends Letter implements LetterInterface{
 		
 
 		
-		File source = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/discount.txt");
+		File source = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/templates/discount.txt");
         dest = new File("/home/regen/git/caseStudyTwo/LetterBatch/resources/output/"+super.companyName+".txt");
         try {
 			copyFileUsingStream(source, dest);
