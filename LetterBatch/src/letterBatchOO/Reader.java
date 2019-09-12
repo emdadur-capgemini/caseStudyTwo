@@ -19,6 +19,7 @@ public class Reader {
 	//Iterator used to iterate letter objects
 	Iterator<LetterInterface> letterIterator;
 	private String error = "";
+	private int lineCount;
 	/**
 	 * When called it initialises object and calls a subroutine to read
 	 * the file line by line and store all created objects in a ArrayList of
@@ -41,15 +42,18 @@ public class Reader {
 	 */
 	private void readFile() {
 
+		lineCount = 0;
 		//tries to read file at specified path, have already been validated
 		try (BufferedReader reader = Files.newBufferedReader(path, Charset.forName("UTF-8"))) {
 
 			String currentLine = null;
 			// ArrayList of strings storing entries of type 1A and 3A to be dealt later
 			ArrayList<String> skipped = new ArrayList<>();
+			ArrayList<Integer> skippedLineNumber = new ArrayList<>();
 			//read the file line by line
 			while ((currentLine = reader.readLine()) != null) {
 
+				lineCount++;
 				//split the string on every '|' character found, stored in array
 				String[] split = currentLine.split("[|]");
 
@@ -59,7 +63,7 @@ public class Reader {
 				case "1":
 
 					//add an ArrayList element of type ConfirmationLetter
-					letter.add(new ConfirmationLetter(split[0], split[1], split[2], split[3], split[4]));
+					letter.add(new ConfirmationLetter(lineCount, split[0], split[1], split[2], split[3], split[4]));
 
 					System.out.println(split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
 					break;
@@ -67,17 +71,18 @@ public class Reader {
 				case "1A":
 					//add to ArrayList to deal with after all letters are initialised
 					skipped.add(currentLine);
+					skippedLineNumber.add(lineCount);
 					break;
 				case "2":
 					//add an ArrayList element of type DiscountLetter
-					letter.add(new DiscountLetter(split[0], split[1], split[2], Double.valueOf(split[3])));
+					letter.add(new DiscountLetter(lineCount, split[0], split[1], split[2], Double.valueOf(split[3])));
 
 					System.out.println(split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
 
 					break;
 				case "3":
 					//add an ArrayList element of type InvoiceLetter
-					letter.add(new InvoiceLetter(split[0], split[1], split[2]));
+					letter.add(new InvoiceLetter(lineCount, split[0], split[1], split[2]));
 
 					System.out.println(split[0] + "  " + split[1] + "  " + split[2]);
 
@@ -86,6 +91,7 @@ public class Reader {
 
 					//add to ArrayList to deal with after all letters are initialised
 					skipped.add(currentLine);
+					skippedLineNumber.add(lineCount);
 
 					break;
 				default:
@@ -100,6 +106,7 @@ public class Reader {
 			//temporary object used to store currently read array element 
 			LetterInterface tempLetter;	
 			ListIterator<String> iteratorSkipped = skipped.listIterator();
+			ListIterator<Integer> iteratorSkippedLineNumber = skippedLineNumber.listIterator();
 			ListIterator<LetterInterface> iteratorLetters;
 			//iterate through the skipped lines
 			while (iteratorSkipped.hasNext()) {
@@ -114,14 +121,14 @@ public class Reader {
 					//the same type and same company name, then it adds it to the list 
 					//of contacts
 					//TODO catch if no company found that matches, probably a boolean variable required
-					ConfirmationLetter tempConfirmation;
+					ConfirmationLetter tempContactList;
 					iteratorLetters = letter.listIterator();
 					while (iteratorLetters.hasNext()) {
 						tempLetter = iteratorLetters.next();
 						if (tempLetter.getType().equals("1") && tempLetter.getCompanyName().equals(split[1])) {
-							tempConfirmation = (ConfirmationLetter) (tempLetter);
-							tempConfirmation.addContact(split[2], split[3]);
-							iteratorLetters.set((LetterInterface) (tempConfirmation));
+							tempContactList = (ConfirmationLetter) (tempLetter);
+							tempContactList.addContact((int)(iteratorSkippedLineNumber.next()),split[0],split[1], split[2], split[3]);
+							iteratorLetters.set((LetterInterface) (tempContactList));
 							System.out.println(
 									"success:" + split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
 
@@ -142,7 +149,7 @@ public class Reader {
 						tempLetter = iteratorLetters.next();
 						if (tempLetter.getType().equals("3") && tempLetter.getCompanyName().equals(split[1])) {
 							tempInvoice = (InvoiceLetter) (tempLetter);
-							tempInvoice.addProduct(split[2], Double.valueOf(split[3]));
+							tempInvoice.addProduct((int)(iteratorSkippedLineNumber.next()),split[0],split[1],split[2], Double.valueOf(split[3]));
 							iteratorLetters.set((LetterInterface) (tempInvoice));
 							System.out.println(
 									"success:" + split[0] + "  " + split[1] + "  " + split[2] + "  " + split[3]);
@@ -179,13 +186,14 @@ public class Reader {
 			//check if the object contains valid data,
 			//if yes empty string is returned,
 			//if no error message is returned
-			error.concat(letterIterator.next().isValid());
+			error = error.concat(letterIterator.next().isValid());
 			
 		}
 		
 		if(this.error.equals(""))
 			return true;
 		else {
+			System.out.println(error);
 			//TODO call function to print error file and pass in the error message
 			return false;
 		}
