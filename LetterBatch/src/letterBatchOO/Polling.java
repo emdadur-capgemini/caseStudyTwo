@@ -42,7 +42,7 @@ public class Polling {
 	// File file = new
 	// File("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANYX.txt");
 
-	// Register the given directory with the WatchService; This function will be
+	// Register the given directory with the WatchService; This function will be.
 	// called by FileVisitor
 	private void registerDirectory(Path dir) throws IOException {
 		WatchKey key = dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);

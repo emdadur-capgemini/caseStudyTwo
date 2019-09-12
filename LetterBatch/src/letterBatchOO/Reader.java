@@ -38,7 +38,7 @@ public class Reader {
 	 * and generated to letters. 
 	 * 
 	 * When adding new letter add a case to the switch statement, if the letter contains a sublist
-	 * a case needs to be added to the second switch. 
+	 * a case needs to be added to the second switch. .
 	 */
 	private void readFile() {
 

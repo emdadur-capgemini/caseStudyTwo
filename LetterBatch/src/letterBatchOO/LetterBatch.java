@@ -13,7 +13,7 @@ public class LetterBatch {
 			poller = new Polling(directory);
 			poller.processEvents();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block.
 			System.out.println("Input directory not found");
 		}
 		
