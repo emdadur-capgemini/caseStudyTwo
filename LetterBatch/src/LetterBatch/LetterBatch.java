@@ -55,6 +55,7 @@ public class LetterBatch {
 		BufferedWriter writer = null;
 
 		try {
+			
 		    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/home/regen/git/caseStudyTwo/LetterBatch/resources/error/"+name), "utf-8"));		    
 		    writer.write(logs);
 	        writer.close();
@@ -63,9 +64,7 @@ public class LetterBatch {
 		    // Report
 			System.out.print(ex.getMessage());
 		} 
-		
-		
-		
+				
 		
 	}
 }
