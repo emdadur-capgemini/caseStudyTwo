@@ -20,7 +20,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Polling {
 
 	private final WatchService watcher;
@@ -36,7 +35,6 @@ public class Polling {
 
 		directories(dir);
 	}
-
 
 	// Register the given directory with the WatchService; This function will be.
 	// called by FileVisitor
@@ -58,10 +56,9 @@ public class Polling {
 					path = Paths.get(listOfFiles[i].getAbsolutePath());
 
 					inputFile = new Reader(path);
-					if(inputFile.isValidFile())
+					if (inputFile.isValidFile())
 						inputFile.generateAllLetters();
-					
-				
+
 				}
 
 			} else {
@@ -131,35 +128,34 @@ public class Polling {
 
 						System.out.println("q.txt found. Program terminated.");
 						try {
-							Files.move(child,Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/archive/"+child.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+							Files.move(child, Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/archive/"
+									+ child.getFileName()), StandardCopyOption.REPLACE_EXISTING);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 						}
 						check = false;
 						break;
 					}
 
-					else if (child.toString().startsWith("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANY")
+					else if (child.toString()
+							.startsWith("/home/regen/git/caseStudyTwo/LetterBatch/resources/input/COMPANY")
 							&& child.toString().endsWith(".txt")) {
 
 						try {
 							inputFile = new Reader(child);
-							if(inputFile.isValidFile())
+							if (inputFile.isValidFile())
 								inputFile.generateAllLetters();
-							
+
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
 
 					} else {
 
-						
 						try {
-							Files.move(child,Paths.get("/home/regen/git/caseStudyTwo/LetterBatch/resources/error/"+child.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+							Files.move(child, Paths.get(
+									"/home/regen/git/caseStudyTwo/LetterBatch/resources/error/" + child.getFileName()),
+									StandardCopyOption.REPLACE_EXISTING);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 						}
 
 					}
@@ -180,7 +176,5 @@ public class Polling {
 			}
 		}
 	}
-	
-	
 
 }

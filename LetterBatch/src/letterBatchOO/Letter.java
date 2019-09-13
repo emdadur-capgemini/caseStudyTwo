@@ -75,16 +75,11 @@ public abstract class Letter {
 			file.close();
 			String inputStr = inputBuffer.toString();
 
-			// System.out.println(inputStr); // display the original file
-
 			// replace lines in the string
 			if (!type.isEmpty()) {
 				inputStr = inputStr.replace(replaceWith, type);
 			}
-
-			// display the new file
-			// System.out.println("----------------------------------\n" + inputStr);
-
+			
 			// write the new string with contents to new file
 			FileOutputStream fileOut = new FileOutputStream(dest);
 
